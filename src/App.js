@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { ME } from "./queries.js";
+// import { useQuery } from "react-apollo";
+import { useQuery, gql } from "@apollo/client";
+import { AuthProvider } from "./AuthContext";
+import { Route, Switch } from "react-router-dom";
+import Login from "./Login";
+import AppContainer from "./AppContainer";
 
 function App() {
+  const meQuery = useQuery(ME);
+
+  if (meQuery.loading) {
+    return <div>loading...</div>;
+  }
+
+  console.log("meQuery.data: ", meQuery.data);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <AuthProvider userData={meQuery.data}>
+        <Switch>
+          <Route path="/login" render={(props) => <Login {...props} />} />
+          <Route path="/" render={(props) => <AppContainer {...props} />} />
+        </Switch>
+      </AuthProvider>
     </div>
   );
+
+  console.log(meQuery.data);
+
+  return <div className="App">{/* <ExchangeRates /> */}</div>;
 }
 
 export default App;
