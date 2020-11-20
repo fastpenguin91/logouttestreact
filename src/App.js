@@ -15,8 +15,6 @@ function App() {
     return <div>loading...</div>;
   }
 
-  console.log("meQuery.data: ", meQuery.data);
-
   return (
     <div>
       <AuthProvider userData={meQuery.data}>
@@ -27,10 +25,6 @@ function App() {
       </AuthProvider>
     </div>
   );
-
-  console.log(meQuery.data);
-
-  return <div className="App">{/* <ExchangeRates /> */}</div>;
 }
 
 export default App;
