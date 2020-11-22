@@ -57,22 +57,22 @@ function AppContainer(props) {
       });
     },
   });
-  const [createTodo] = useMutation(NEW_TODO, {
-    update(cache, { data: { createTodo } }) {
-      const thingThree = cache.readQuery({
-        query: LIST_TODOS,
-        variables: { listId: state.currentListId },
-      });
+  // const [createTodo] = useMutation(NEW_TODO, {
+  //   update(cache, { data: { createTodo } }) {
+  //     const thingThree = cache.readQuery({
+  //       query: LIST_TODOS,
+  //       variables: { listId: state.currentListId },
+  //     });
 
-      cache.writeQuery({
-        query: LIST_TODOS,
-        variables: { listId: state.currentListId },
-        data: {
-          listById: [createTodo, ...thingThree.listById.todos],
-        },
-      });
-    },
-  });
+  //     cache.writeQuery({
+  //       query: LIST_TODOS,
+  //       variables: { listId: state.currentListId },
+  //       data: {
+  //         listById: [createTodo, ...thingThree.listById.todos],
+  //       },
+  //     });
+  //   },
+  // });
 
   if (loading) {
     return <div>loading...</div>;

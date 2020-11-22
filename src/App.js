@@ -7,6 +7,7 @@ import { AuthProvider } from "./AuthContext";
 import { Route, Switch } from "react-router-dom";
 import Login from "./Login";
 import AppContainer from "./AppContainer";
+import Landing from "./Landing";
 
 function App() {
   const meQuery = useQuery(ME);
@@ -20,7 +21,11 @@ function App() {
       <AuthProvider userData={meQuery.data}>
         <Switch>
           <Route path="/login" render={(props) => <Login {...props} />} />
-          <Route path="/" render={(props) => <AppContainer {...props} />} />
+          <Route
+            path="/dashboard"
+            render={(props) => <AppContainer {...props} />}
+          />
+          <Route path="/" render={(props) => <Landing {...props} />} />
         </Switch>
       </AuthProvider>
     </div>

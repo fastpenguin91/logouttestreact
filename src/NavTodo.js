@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import { AuthContext } from "./AuthContext";
 import { useMutation, gql } from "@apollo/client";
+import { useHistory } from "react-router-dom";
 
 const LOGOUT_MUTATION = gql`
   mutation {
@@ -13,6 +14,7 @@ const LOGOUT_MUTATION = gql`
 `;
 
 function NavTodo(props) {
+  let history = useHistory();
   const [{ currentUser }, setCurrentUser] = useContext(AuthContext);
 
   const [doLogout, { client }] = useMutation(LOGOUT_MUTATION, {
@@ -23,6 +25,12 @@ function NavTodo(props) {
       });
     },
   });
+
+  const routeToHome = () => {
+    history.push("/");
+    console.log("after routed");
+    doLogout();
+  };
 
   return (
     <Navbar className="sticky-top" bg="light" expand="md">
@@ -36,11 +44,15 @@ function NavTodo(props) {
           <Link to="/">
             <Button
               onClick={() => {
-                doLogout();
+                // doLogout();
+                routeToHome();
               }}
             >
               Logout
             </Button>
+          </Link>
+          <Link to="/dashboard">
+            <Button>Dashboard</Button>
           </Link>
         </div>
       ) : (
